@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { loadData } from "../model";
+import { usersController } from "../controller/users.js";
 
 const appUsers = Router();
 
-appUsers.get("/", )
+appUsers.get("/", usersController.getAll)
 
 export default appUsers;

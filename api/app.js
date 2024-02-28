@@ -1,4 +1,5 @@
 import express from "express"
+import appUsers from "./routers/users.js";
 import "dotenv/config"
 
 const app = express();
@@ -6,7 +7,9 @@ const PORT = process.env.PORT || 20000;
 
 app.use(express.json());
 
-app.get('/:entity', async (req, res) => {
+app.use("/users", appUsers)
+
+/*app.get('/:entity', async (req, res) => {
   const { entity } = req.params;
   const data = await loadData(entity);
   res.json(data);
@@ -52,7 +55,7 @@ app.delete('/:entity/:id', async (req, res) => {
   delete data[id];
   await saveData(entity, data);
   res.send('Record deleted');
-});
+});*/
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
