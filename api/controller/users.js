@@ -4,8 +4,7 @@ export class usersController{
     
     static async getUserAccount(req,res){
         try {
-            //obetner el id_user y la info de data
-            const {id_user} = req.params
+            const id_user = req.data
             const entity = req.baseUrl.substring(1);
             const data = await loadData(entity)
             //Validar si existe un usuario con ese id

@@ -1,5 +1,6 @@
 import express from "express"
 import appUsers from "./routers/users.js";
+import appHarvest from "./routers/harvest.js";
 import { limitRequest } from "./config/limit_request.js";
 import "dotenv/config"
 
@@ -10,6 +11,8 @@ app.use(express.json());
 app.use(limitRequest())
 
 app.use("/users", appUsers)
+app.use("/haverst", appHarvest)
+
 
 /*app.get('/:entity', async (req, res) => {
   const { entity } = req.params;
