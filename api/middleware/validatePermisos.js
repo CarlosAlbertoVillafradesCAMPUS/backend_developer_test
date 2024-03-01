@@ -11,7 +11,7 @@ export const validatePermisosCosechar = async(req,res,next) => {
         const rol = validateAccount.role
         const dataAccount = await loadData("accounts");
         const validatePermission = dataAccount[req.params.account].roles[rol].permissions["form1"].create
-        if (!validatePermission) return res.status(400).json({status:400, message:`La cuenta '${req.params.account}' no tiene permisos para 'Cosechar'`})
+        if (!validatePermission) return res.status(400).json({status:400, message:`La cuenta '${req.params.account}' no tiene permisos para agregar registros de 'Fermentar'`})
 
         next()
     } catch (error) {
@@ -29,8 +29,8 @@ export const validatePermisosFermentar = async(req,res,next) => {
 
         const rol = validateAccount.role
         const dataAccount = await loadData("accounts");
-        const validatePermission = dataAccount[req.params.account].roles[rol].permissions["form1"].create
-        if (!validatePermission) return res.status(400).json({status:400, message:`La cuenta '${req.params.account}' no tiene permisos para 'Cosechar'`})
+        const validatePermission = dataAccount[req.params.account].roles[rol].permissions["form3"].create
+        if (!validatePermission) return res.status(400).json({status:400, message:`La cuenta '${req.params.account}' no tiene permisos para agregar registro de 'Fermentacion'`})
 
         next()
     } catch (error) {

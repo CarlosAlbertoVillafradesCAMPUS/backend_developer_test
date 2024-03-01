@@ -1,6 +1,7 @@
 import express from "express"
 import appUsers from "./routers/users.js";
 import appHarvest from "./routers/harvest.js";
+import appFerment from "./routers/ferment.js";
 import { loadData, saveData } from "./model/index.js";
 import { limitRequest } from "./config/limit_request.js";
 import "dotenv/config"
@@ -13,56 +14,7 @@ app.use(limitRequest())
 
 app.use("/api/users", appUsers)
 app.use("/api/harvest", appHarvest)
-
-
-//Funciones principales
-app.get('/:entity', async (req, res) => {
-  const { entity } = req.params;
-  const data = await loadData(entity);
-  res.json(data);
-});
-
-app.get('/:entity/:id', async (req, res) => {
-  const { entity, id } = req.params;
-  const data = await loadData(entity);
-  if (!data[id]) {
-    return res.status(404).send('Record not found');
-  }
-  res.json(data[id]);
-});
-
-app.post('/:entity', async (req, res) => {
-  const { entity } = req.params;
-  const id = Date.now();
-  const record = req.body;
-  const data = await loadData(entity);
-  data[id] = record;
-  await saveData(entity, data);
-  res.status(201).send('Record added');
-});
-
-app.put('/:entity/:id', async (req, res) => {
-  const { entity, id } = req.params;
-  const record = req.body;
-  const data = await loadData(entity);
-  if (!data[id]) {
-    return res.status(404).send('Record not found');
-  }
-  data[id] = record;
-  await saveData(entity, data);
-  res.send('Record updated');
-});
-
-app.delete('/:entity/:id', async (req, res) => {
-  const { entity, id } = req.params;
-  const data = await loadData(entity);
-  if (!data[id]) {
-    return res.status(404).send('Record not found');
-  }
-  delete data[id];
-  await saveData(entity, data);
-  res.send('Record deleted');
-}); 
+app.use("/api/ferment", appFerment)
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

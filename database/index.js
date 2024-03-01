@@ -6,7 +6,7 @@ const PORT = 20000;
 
 app.use(express.json());
 
-const DATA_FOLDER = 'data';
+const DATA_FOLDER = '../api/data';
 
 /**
  * Load data from JSON file
