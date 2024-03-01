@@ -1,11 +1,13 @@
 import express from "express"
 import appUsers from "./routers/users.js";
+import { limitRequest } from "./config/limit_request.js";
 import "dotenv/config"
 
 const app = express();
 const PORT = process.env.PORT || 20000;
 
 app.use(express.json());
+app.use(limitRequest())
 
 app.use("/users", appUsers)
 
