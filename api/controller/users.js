@@ -4,9 +4,8 @@ export class usersController{
     
     static async getUserAccount(req,res){
         try {
-            const id_user = req.data
-            const entity = req.baseUrl.substring(1);
-            const data = await loadData(entity)
+            const {id_user} = req.params
+            const data = await loadData("users")
             //Validar si existe un usuario con ese id
             if (!data[id_user]) {
                 return res.status(404).send({status:400, message:'Record not found'});

@@ -1,6 +1,7 @@
 import express from "express"
 import appUsers from "./routers/users.js";
 import appHarvest from "./routers/harvest.js";
+import { loadData, saveData } from "./model/index.js";
 import { limitRequest } from "./config/limit_request.js";
 import "dotenv/config"
 
@@ -10,11 +11,12 @@ const PORT = process.env.PORT || 20000;
 app.use(express.json());
 app.use(limitRequest())
 
-app.use("/users", appUsers)
-app.use("/haverst", appHarvest)
+app.use("/api/users", appUsers)
+app.use("/api/harvest", appHarvest)
 
 
-/*app.get('/:entity', async (req, res) => {
+//Funciones principales
+app.get('/:entity', async (req, res) => {
   const { entity } = req.params;
   const data = await loadData(entity);
   res.json(data);
@@ -60,7 +62,7 @@ app.delete('/:entity/:id', async (req, res) => {
   delete data[id];
   await saveData(entity, data);
   res.send('Record deleted');
-});*/
+}); 
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
